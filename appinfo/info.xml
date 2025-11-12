@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>oauthwecom</id>
+	<name>企业微信OAuth认证</name>
+	<summary>NextCloud企业微信OAuth认证插件，支持扫码登录、用户同步和组织架构管理</summary>
+	<description><![CDATA[
+# NextCloud 企业微信 OAuth 认证插件
+
+一款专业级企业集成解决方案，通过无缝对接企业微信，为企业提供安全、统一的身份认证入口。
+
+## 核心功能
+
+* **多场景认证支持**
+  - PC端扫码登录
+  - 移动端APP内免登
+  - 自动用户创建
+
+* **组织架构同步**
+  - 自动化用户同步
+  - 部门映射到用户组
+  - 支持全量和增量同步
+
+* **安全与审计**
+  - 完整的审计日志
+  - HTTPS加密通信
+  - CSRF保护
+
+* **灵活配置**
+  - 可选强制企业微信登录
+  - 用户匹配策略
+  - 定时同步设置
+
+## 使用说明
+
+1. 在企业微信管理后台创建自建应用
+2. 在NextCloud管理后台配置企业微信信息
+3. 启用插件并测试连接
+4. 用户即可使用企业微信账号登录
+
+详细文档请参考: https://github.com/liugang926/Nextcloud_wecom
+	]]></description>
+	<version>1.0.0</version>
+	<licence>agpl</licence>
+	<author mail="709840110@qq.com" homepage="https://blog.csdn.net/qq_35209305?type=blog">Abner Liu</author>
+	<namespace>OAuthWeCom</namespace>
+	<category>integration</category>
+	<category>security</category>
+	<category>organization</category>
+	<website>https://github.com/liugang926/Nextcloud_wecom</website>
+	<bugs>https://github.com/liugang926/Nextcloud_wecom/issues</bugs>
+	<repository>https://github.com/liugang926/Nextcloud_wecom.git</repository>
+	<screenshot>https://raw.githubusercontent.com/liugang926/Nextcloud_wecom/main/screenshots/login.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/liugang926/Nextcloud_wecom/main/screenshots/admin.png</screenshot>
+	<dependencies>
+		<nextcloud min-version="30" max-version="32"/>
+		<php min-version="8.1" max-version="8.4"/>
+	</dependencies>
+	<settings>
+		<admin>OCA\OAuthWeCom\Settings\AdminSettings</admin>
+	</settings>
+</info>

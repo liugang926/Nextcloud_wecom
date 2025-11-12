@@ -1,0 +1,231 @@
+/* 企业微信OAuth管理设置样式 */
+#oauthwecom-admin {
+	padding: 20px;
+	max-width: 900px;
+}
+
+#oauthwecom-admin h2 {
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+#oauthwecom-admin h3 {
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 15px;
+	color: var(--color-main-text);
+}
+
+.wecom-settings-section {
+	background: var(--color-main-background);
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius-large);
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.settings-hint {
+	color: var(--color-text-maxcontrast);
+	margin-bottom: 20px;
+	line-height: 1.6;
+}
+
+.settings-hint a {
+	color: var(--color-primary-element);
+	text-decoration: none;
+}
+
+.settings-hint a:hover {
+	text-decoration: underline;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 8px;
+	color: var(--color-main-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group select {
+	width: 100%;
+	max-width: 500px;
+	padding: 10px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius);
+	background: var(--color-main-background);
+	color: var(--color-main-text);
+	font-size: 14px;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+	outline: none;
+	border-color: var(--color-primary-element);
+	box-shadow: 0 0 0 2px var(--color-primary-element-light);
+}
+
+.form-group input[type="text"]:read-only {
+	background: var(--color-background-dark);
+	cursor: default;
+}
+
+.form-group .hint {
+	color: var(--color-text-maxcontrast);
+	font-size: 12px;
+	margin-top: 6px;
+	line-height: 1.4;
+}
+
+.form-group .hint.warning {
+	color: var(--color-warning);
+	font-weight: 500;
+}
+
+.checkbox-group {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+	margin-top: 3px;
+	flex-shrink: 0;
+}
+
+.checkbox-group label {
+	margin-bottom: 0;
+	cursor: pointer;
+}
+
+.checkbox-group .hint {
+	margin-left: 30px;
+}
+
+.wecom-settings-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.button-primary,
+.button-secondary {
+	padding: 10px 20px;
+	border-radius: var(--border-radius);
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+	border: none;
+	font-size: 14px;
+}
+
+.button-primary {
+	background: var(--color-primary-element);
+	color: var(--color-primary-element-text);
+}
+
+.button-primary:hover {
+	background: var(--color-primary-element-hover);
+}
+
+.button-primary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.button-secondary {
+	background: var(--color-background-dark);
+	color: var(--color-main-text);
+	border: 1px solid var(--color-border);
+}
+
+.button-secondary:hover {
+	background: var(--color-background-hover);
+}
+
+.button-secondary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.sync-status {
+	display: inline-block;
+	margin-left: 10px;
+	padding: 5px 10px;
+	border-radius: var(--border-radius);
+	font-size: 12px;
+}
+
+.sync-status.syncing {
+	background: var(--color-primary-element-light);
+	color: var(--color-primary-element);
+}
+
+.sync-status.success {
+	background: var(--color-success);
+	color: white;
+}
+
+.sync-status.error {
+	background: var(--color-error);
+	color: white;
+}
+
+.message {
+	margin-top: 20px;
+	padding: 15px;
+	border-radius: var(--border-radius);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.message.success {
+	background: var(--color-success);
+	color: white;
+}
+
+.message.error {
+	background: var(--color-error);
+	color: white;
+}
+
+.message.hidden {
+	display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+	#oauthwecom-admin {
+		padding: 15px;
+	}
+
+	.wecom-settings-section {
+		padding: 15px;
+	}
+
+	.form-group input[type="text"],
+	.form-group input[type="password"],
+	.form-group input[type="number"],
+	.form-group select {
+		max-width: 100%;
+	}
+
+	.wecom-settings-actions {
+		flex-direction: column;
+	}
+
+	.button-primary,
+	.button-secondary {
+		width: 100%;
+	}
+}
+
