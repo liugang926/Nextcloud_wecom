@@ -5,8 +5,8 @@
 
 use OCP\Util;
 
-Util::addScript('oauthwecom', 'adminSettings');
-Util::addStyle('oauthwecom', 'adminSettings');
+Util::addScript('oauthwecom', 'oauthwecom-adminSettings');
+Util::addStyle('oauthwecom', 'oauthwecom-adminSettings');
 
 // 生成建议的回调 URL
 $urlGenerator = \OC::$server->getURLGenerator();

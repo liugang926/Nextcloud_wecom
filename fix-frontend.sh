@@ -73,11 +73,17 @@ echo ""
 
 # 步骤 5: 验证构建产物
 echo "步骤 5: 验证构建产物..."
-if [ -f "js/adminSettings.js" ]; then
+if [ -f "js/oauthwecom-adminSettings.mjs" ]; then
+    echo "✅ oauthwecom-adminSettings.mjs 已创建"
+    ls -lh "js/oauthwecom-adminSettings.mjs"
+elif [ -f "js/adminSettings.js" ]; then
     echo "✅ adminSettings.js 已创建"
     ls -lh "js/adminSettings.js"
 else
-    echo "❌ adminSettings.js 未创建"
+    echo "❌ 前端 JS 文件未创建"
+    echo ""
+    echo "查看 js/ 目录内容："
+    ls -la "js/"
     echo ""
     echo "可能的原因："
     echo "1. 构建配置有问题"
@@ -85,9 +91,9 @@ else
     exit 1
 fi
 
-if [ -f "css/adminSettings.css" ]; then
-    echo "✅ adminSettings.css 已创建"
-    ls -lh "css/adminSettings.css"
+if [ -f "css/oauthwecom-adminSettings.css" ] || [ -f "css/adminSettings.css" ]; then
+    echo "✅ CSS 文件已创建"
+    ls -lh "css/"*.css 2>/dev/null | head -5
 fi
 echo ""
 
