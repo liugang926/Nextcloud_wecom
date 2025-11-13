@@ -9,7 +9,6 @@ use OCA\OAuthWeCom\Service\SyncService;
 use OCA\OAuthWeCom\Service\WeComApiService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
@@ -31,7 +30,6 @@ class AdminController extends Controller {
 	 *
 	 * @return DataResponse
 	 */
-	#[NoAdminRequired]
 	public function getConfig(): DataResponse {
 		try {
 			return new DataResponse([
@@ -62,7 +60,6 @@ class AdminController extends Controller {
 	 * @param string $defaultQuota
 	 * @return DataResponse
 	 */
-	#[NoAdminRequired]
 	public function saveConfig(
 		string $corpId = '',
 		string $agentId = '',
@@ -119,7 +116,6 @@ class AdminController extends Controller {
 	 *
 	 * @return DataResponse
 	 */
-	#[NoAdminRequired]
 	public function testConnection(): DataResponse {
 		try {
 			if (!$this->configService->isConfigured()) {
@@ -150,7 +146,6 @@ class AdminController extends Controller {
 	 *
 	 * @return DataResponse
 	 */
-	#[NoAdminRequired]
 	public function manualSync(): DataResponse {
 		try {
 			if (!$this->configService->isConfigured()) {

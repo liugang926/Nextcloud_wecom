@@ -7,6 +7,7 @@ namespace OCA\OAuthWeCom\AppInfo;
 use OCA\OAuthWeCom\BackgroundJob\SyncUsersJob;
 use OCA\OAuthWeCom\Login\WeComLoginProvider;
 use OCA\OAuthWeCom\Service\ConfigService;
+use OCA\OAuthWeCom\Settings\AdminSection;
 use OCA\OAuthWeCom\Settings\AdminSettings;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -22,6 +23,9 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
+		// 注册管理员设置区域
+		$context->registerSettingsSection(AdminSection::class);
+		
 		// 注册管理员设置页面
 		$context->registerSettings(AdminSettings::class);
 		
