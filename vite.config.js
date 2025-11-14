@@ -4,6 +4,7 @@ export default createAppConfig({
 	main: 'src/main.js',
 	adminSettings: 'src/admin-settings.js',
 }, {
+	inlineCSS: true,
 	config: {
 		css: {
 			modules: {

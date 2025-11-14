@@ -6,7 +6,6 @@
 use OCP\Util;
 
 Util::addScript('oauthwecom', 'oauthwecom-adminSettings');
-Util::addStyle('oauthwecom', 'oauthwecom-adminSettings');
 
 // 生成建议的回调 URL
 $urlGenerator = \OC::$server->getURLGenerator();
@@ -178,10 +177,4 @@ $suggestedCallbackUrl = $urlGenerator->linkToRouteAbsolute('oauthwecom.oauth.cal
 
 	<div id="wecom-message" class="message hidden"></div>
 </div>
-
-<script>
-console.log('企业微信OAuth认证设置页面已加载');
-console.log('保存按钮:', document.getElementById('save-settings'));
-console.log('测试按钮:', document.getElementById('test-connection'));
-</script>
 
