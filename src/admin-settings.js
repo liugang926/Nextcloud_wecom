@@ -1,6 +1,22 @@
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
-import { showSuccess, showError } from '@nextcloud/dialogs'
+
+// 使用 Nextcloud 原生通知 API
+const showSuccess = (msg) => {
+	if (window.OC && window.OC.Notification) {
+		window.OC.Notification.showTemporary(msg, { type: 'success' })
+	} else {
+		console.log('Success:', msg)
+	}
+}
+
+const showError = (msg) => {
+	if (window.OC && window.OC.Notification) {
+		window.OC.Notification.showTemporary(msg, { type: 'error' })
+	} else {
+		console.error('Error:', msg)
+	}
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 	const saveButton = document.getElementById('save-settings')

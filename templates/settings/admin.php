@@ -5,11 +5,12 @@
 
 use OCP\Util;
 
-Util::addScript('oauthwecom', 'oauthwecom-adminSettings');
-
 // 生成建议的回调 URL
 $urlGenerator = \OC::$server->getURLGenerator();
 $suggestedCallbackUrl = $urlGenerator->linkToRouteAbsolute('oauthwecom.oauth.callback');
+
+// 在页面底部加载脚本，确保DOM已准备好
+script('oauthwecom', 'oauthwecom-adminSettings');
 ?>
 
 <div id="oauthwecom-admin" class="section">
