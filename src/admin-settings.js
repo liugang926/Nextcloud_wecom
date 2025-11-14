@@ -1,20 +1,48 @@
-import axios from '@nextcloud/axios'
-import { generateUrl } from '@nextcloud/router'
+// 使用原生 API，避免 @nextcloud 库的初始化问题
+
+// 生成 Nextcloud URL
+const generateUrl = (url) => {
+	const webroot = window.OC?.webroot || ''
+	return webroot + url
+}
+
+// HTTP 请求封装
+const request = async (url, options = {}) => {
+	const token = document.head.querySelector('meta[name="csrf-token"]')?.content
+	const headers = {
+		'Content-Type': 'application/json',
+		'requesttoken': token || '',
+		...options.headers
+	}
+
+	const response = await fetch(url, {
+		...options,
+		headers
+	})
+
+	if (!response.ok) {
+		const error = new Error('HTTP error')
+		error.response = { data: await response.json() }
+		throw error
+	}
+
+	return { data: await response.json() }
+}
 
 // 使用 Nextcloud 原生通知 API
 const showSuccess = (msg) => {
-	if (window.OC && window.OC.Notification) {
+	if (window.OC?.Notification) {
 		window.OC.Notification.showTemporary(msg, { type: 'success' })
 	} else {
-		console.log('Success:', msg)
+		console.log('✓', msg)
 	}
 }
 
 const showError = (msg) => {
-	if (window.OC && window.OC.Notification) {
+	if (window.OC?.Notification) {
 		window.OC.Notification.showTemporary(msg, { type: 'error' })
 	} else {
-		console.error('Error:', msg)
+		console.error('✗', msg)
 	}
 }
 
@@ -53,19 +81,22 @@ document.addEventListener('DOMContentLoaded', function() {
 				saveButton.disabled = true
 				saveButton.textContent = '保存中...'
 
-				const response = await axios.post(
+				const response = await request(
 					generateUrl('/apps/oauthwecom/admin/config'),
 					{
-						corpId,
-						agentId,
-						appSecret,
-						enabled,
-						forceLogin,
-						autoCreateUser,
-						syncEnabled,
-						syncFrequency,
-						userMatchFields,
-						defaultQuota,
+						method: 'POST',
+						body: JSON.stringify({
+							corpId,
+							agentId,
+							appSecret,
+							enabled,
+							forceLogin,
+							autoCreateUser,
+							syncEnabled,
+							syncFrequency,
+							userMatchFields,
+							defaultQuota,
+						})
 					}
 				)
 
@@ -91,8 +122,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				testButton.disabled = true
 				testButton.textContent = '测试中...'
 
-				const response = await axios.post(
-					generateUrl('/apps/oauthwecom/admin/test-connection')
+				const response = await request(
+					generateUrl('/apps/oauthwecom/admin/test-connection'),
+					{ method: 'POST' }
 				)
 
 				if (response.data.status === 'success') {
@@ -114,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (syncButton) {
 		syncButton.addEventListener('click', async function() {
 			const syncStatus = document.getElementById('sync-status')
-			
+
 			try {
 				syncButton.disabled = true
 				syncButton.textContent = '同步中...'
@@ -123,8 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					syncStatus.className = 'sync-status syncing'
 				}
 
-				const response = await axios.post(
-					generateUrl('/apps/oauthwecom/admin/sync')
+				const response = await request(
+					generateUrl('/apps/oauthwecom/admin/sync'),
+					{ method: 'POST' }
 				)
 
 				if (response.data.status === 'success') {
