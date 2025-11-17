@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # NextCloud 应用
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud-dev
+    ports:
+      - "8080:80"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=admin123
+      - NEXTCLOUD_TRUSTED_DOMAINS=localhost
+      - REDIS_HOST=redis
+      - PHP_MEMORY_LIMIT=512M
+      - PHP_UPLOAD_LIMIT=512M
+    volumes:
+      - nextcloud_data:/var/www/html
+      # 挂载插件目录到容器（开发模式）
+      - ./:/var/www/html/apps/oauthwecom:rw
+      # 共享 node_modules（避免权限问题）
+      - /var/www/html/apps/oauthwecom/node_modules
+    depends_on:
+      - db
+      - redis
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+  # MySQL 数据库
+  db:
+    image: mysql:8.0
+    container_name: nextcloud-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+  # Redis 缓存
+  redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+  # Adminer - 数据库管理工具（可选）
+  adminer:
+    image: adminer:latest
+    container_name: nextcloud-adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - nextcloud_network
+    restart: unless-stopped
+
+volumes:
+  nextcloud_data:
+  db_data:
+
+networks:
+  nextcloud_network:
+    driver: bridge
+
