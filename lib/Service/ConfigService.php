@@ -22,6 +22,7 @@ class ConfigService {
 	private const USER_MATCH_FIELDS = 'user_match_fields';
 	private const DEFAULT_QUOTA = 'default_quota';
 	private const SYNC_DEPARTMENTS = 'sync_departments';
+	private const NOTIFICATIONS_ENABLED = 'notifications_enabled';
 
 	public function __construct(
 		private IConfig $config,
@@ -202,7 +203,21 @@ class ConfigService {
 	}
 
 	/**
-	 * 检查配置是否完整
+	 * Whether notifications are enabled
+	 */
+	public function isNotificationsEnabled(): bool {
+		return $this->config->getAppValue(self::APP_ID, self::NOTIFICATIONS_ENABLED, 'no') === 'yes';
+	}
+
+	/**
+	 * Set whether notifications are enabled
+	 */
+	public function setNotificationsEnabled(bool $enabled): void {
+		$this->config->setAppValue(self::APP_ID, self::NOTIFICATIONS_ENABLED, $enabled ? 'yes' : 'no');
+	}
+
+	/**
+	 * Check if the configuration is complete
 	 */
 	public function isConfigured(): bool {
 		return !empty($this->getCorpId())
@@ -228,6 +243,7 @@ class ConfigService {
 			'default_quota' => $this->getDefaultQuota(),
 			'sync_departments' => $this->getSyncDepartments(),
 			'is_configured' => $this->isConfigured(),
+			'notifications_enabled' => $this->isNotificationsEnabled(),
 		];
 	}
 }

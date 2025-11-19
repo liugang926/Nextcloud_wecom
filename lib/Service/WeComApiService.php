@@ -285,5 +285,47 @@ class WeComApiService {
 			throw $e;
 		}
 	}
+
+	/**
+	 * Send a message
+	 *
+	 * @throws \Exception
+	 */
+	public function sendMessage(string $userId, string $content): bool {
+		$accessToken = $this->getAccessToken();
+		$url = self::API_BASE_URL . '/message/send';
+
+		$params = [
+			'access_token' => $accessToken,
+		];
+
+		$body = [
+			'touser' => $userId,
+			'msgtype' => 'text',
+			'agentid' => $this->configService->getAgentId(),
+			'text' => [
+				'content' => $content,
+			],
+		];
+
+		try {
+			$client = $this->clientService->newClient();
+			$response = $client->post($url, [
+				'query' => $params,
+				'json' => $body,
+			]);
+			$data = json_decode($response->getBody(), true);
+
+			if (isset($data['errcode']) && $data['errcode'] !== 0) {
+				$errorMsg = $data['errmsg'] ?? 'Unknown error';
+				throw new \Exception('Failed to send message: ' . $errorMsg);
+			}
+
+			return true;
+		} catch (\Exception $e) {
+			$this->logger->error('Failed to send message', ['exception' => $e, 'userId' => $userId]);
+			throw $e;
+		}
+	}
 }
 

@@ -71,6 +71,7 @@ class AdminController extends Controller {
 		int $syncFrequency = 24,
 		array $userMatchFields = ['email'],
 		string $defaultQuota = 'default',
+		bool $notificationsEnabled = false
 	): DataResponse {
 		try {
 			// 基本配置
@@ -94,6 +95,9 @@ class AdminController extends Controller {
 			$this->configService->setSyncFrequency($syncFrequency);
 			$this->configService->setUserMatchFields($userMatchFields);
 			$this->configService->setDefaultQuota($defaultQuota);
+
+			// 通知设置
+			$this->configService->setNotificationsEnabled($notificationsEnabled);
 
 			$this->logger->info('WeComConfig saved successfully');
 
